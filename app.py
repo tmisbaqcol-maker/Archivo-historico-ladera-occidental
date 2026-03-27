@@ -136,9 +136,6 @@ h1, h2, h3, h4 {
     margin-bottom: 1rem;
     border: 1px solid #ece3d1;
 }
-.polaroid:nth-child(2n) {
-    transform: rotate(1.2deg);
-}
 .photo-note {
     text-align: center;
     font-size: .92rem;
@@ -256,19 +253,27 @@ elif slide == "Slide 2":
     c1, c2 = st.columns(2)
 
     with c1:
-        st.markdown('<div class="slide-card"><h3>Impacto poblacional total</h3>', unsafe_allow_html=True)
-        st.markdown('<div class="metric-box"><div class="big-number">231.000</div><div>Habitantes en zonas afectadas por erosión y arroyos</div></div>', unsafe_allow_html=True)
-        st.markdown('<div class="metric-box"><div class="big-number">54.200</div><div>Habitantes afectados directamente por erosión</div><div><strong>Equivalente a 10.800 familias</strong></div></div>', unsafe_allow_html=True)
         st.markdown("""
-        <div class="risk-box">
-            <h3>Evento crítico (Invierno 1988)</h3>
-            <p>
-            Familias censadas: <strong>1.250</strong><br>
-            Familias en alto riesgo: <strong>750</strong><br>
-            Total afectadas: <strong>2.000 familias</strong><br>
-            Equivalente aproximado: <strong>10.000 habitantes</strong>
-            </p>
-        </div>
+        <div class="slide-card">
+            <h3>Impacto poblacional total</h3>
+            <div class="metric-box">
+                <div class="big-number">231.000</div>
+                <div>Habitantes en zonas afectadas por erosión y arroyos</div>
+            </div>
+            <div class="metric-box">
+                <div class="big-number">54.200</div>
+                <div>Habitantes afectados directamente por erosión</div>
+                <div><strong>Equivalente a 10.800 familias</strong></div>
+            </div>
+            <div class="risk-box">
+                <h3>Evento crítico (Invierno 1988)</h3>
+                <p>
+                Familias censadas: <strong>1.250</strong><br>
+                Familias en alto riesgo: <strong>750</strong><br>
+                Total afectadas: <strong>2.000 familias</strong><br>
+                Equivalente aproximado: <strong>10.000 habitantes</strong>
+                </p>
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
@@ -450,10 +455,7 @@ elif slide == "Slide 6":
             with cols[i % 3]:
                 st.markdown('<div class="polaroid">', unsafe_allow_html=True)
                 st.image(str(foto), use_container_width=True)
-                st.markdown(
-                    f'<div class="photo-note">{foto.stem}</div>',
-                    unsafe_allow_html=True
-                )
+                st.markdown(f'<div class="photo-note">{foto.stem}</div>', unsafe_allow_html=True)
                 st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("""
