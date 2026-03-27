@@ -1,9 +1,9 @@
 from pathlib import Path
 import streamlit as st
 
-# -------------------------------------------------
+# =========================================================
 # CONFIGURACIÓN GENERAL
-# -------------------------------------------------
+# =========================================================
 st.set_page_config(
     page_title="Zona Suroccidente – Barranquilla",
     layout="wide",
@@ -14,10 +14,11 @@ BASE_DIR = Path(__file__).resolve().parent
 IMG_CARTO = BASE_DIR / "Cartografia_1988"
 IMG_FOTOS = BASE_DIR / "Fotografia_1988"
 
+# =========================================================
+# FUNCIONES
+# =========================================================
 def show_image(path, caption=None):
     img_path = Path(path)
-    if not img_path.is_absolute():
-        img_path = BASE_DIR / path
     if img_path.exists():
         st.image(str(img_path), caption=caption, use_container_width=True)
     else:
@@ -27,21 +28,24 @@ def get_images_from_folder(folder: Path):
     extensiones = {".jpg", ".jpeg", ".png", ".webp"}
     if not folder.exists():
         return []
-    return sorted([p for p in folder.iterdir() if p.is_file() and p.suffix.lower() in extensiones])
+    return sorted(
+        [p for p in folder.iterdir() if p.is_file() and p.suffix.lower() in extensiones],
+        key=lambda x: x.name.lower()
+    )
 
-# -------------------------------------------------
+# =========================================================
 # ESTILOS
-# -------------------------------------------------
+# =========================================================
 st.markdown("""
 <style>
-html, body, [class*="css"]  {
-    font-family: "Arial", sans-serif;
+html, body, [class*="css"] {
+    font-family: Arial, sans-serif;
 }
 .main {
     background-color: #f7f7f7;
 }
 .block-container {
-    padding-top: 1.6rem;
+    padding-top: 1.4rem;
     padding-bottom: 2rem;
     max-width: 1180px;
 }
@@ -97,13 +101,6 @@ html, body, [class*="css"]  {
     font-size: 0.95rem;
     color: #4a5568;
 }
-.centered {
-    text-align: center;
-}
-ul {
-    margin-top: 0.35rem;
-    margin-bottom: 0.35rem;
-}
 h1, h2, h3, h4 {
     margin-top: 0;
 }
@@ -132,7 +129,6 @@ h1, h2, h3, h4 {
     padding: .7rem .7rem 1rem .7rem;
     border-radius: 8px;
     box-shadow: 0 8px 20px rgba(0,0,0,.16);
-    transform: rotate(-1deg);
     margin-bottom: 1rem;
     border: 1px solid #ece3d1;
 }
@@ -141,13 +137,14 @@ h1, h2, h3, h4 {
     font-size: .92rem;
     color: #5d4c33;
     margin-top: .45rem;
+    word-break: break-word;
 }
 </style>
 """, unsafe_allow_html=True)
 
-# -------------------------------------------------
+# =========================================================
 # NAVEGACIÓN
-# -------------------------------------------------
+# =========================================================
 slides = ["Portada", "Slide 1", "Slide 2", "Slide 4", "Slide 5", "Slide 6"]
 
 if "slide_idx" not in st.session_state:
@@ -175,9 +172,9 @@ with nav3:
 
 slide = slides[st.session_state.slide_idx]
 
-# -------------------------------------------------
+# =========================================================
 # PORTADA
-# -------------------------------------------------
+# =========================================================
 if slide == "Portada":
     st.markdown("""
     <div class="hero">
@@ -194,9 +191,9 @@ if slide == "Portada":
     </div>
     """, unsafe_allow_html=True)
 
-# -------------------------------------------------
+# =========================================================
 # SLIDE 1
-# -------------------------------------------------
+# =========================================================
 elif slide == "Slide 1":
     st.markdown("""
     <div class="hero">
@@ -211,7 +208,6 @@ elif slide == "Slide 1":
         st.markdown("""
         <div class="slide-card">
             <h3>Generadores del problema</h3>
-
             <p><strong>Falta de planeación</strong><br>
             ↓<br>
             <strong>Urbanizaciones piratas en zonas no aptas</strong></p>
@@ -234,15 +230,15 @@ elif slide == "Slide 1":
             <h3>Lectura sintética</h3>
             <p>La erosión aparece como resultado de la interacción entre ocupación informal del suelo, déficit de servicios básicos, pérdida de cobertura vegetal y presión hídrica estacional.</p>
         </div>
-
         <div class="metric-box">
             <h3>Cadena causal</h3>
             <p>Falta de planeación → Urbanización en zonas no aptas → Servicios incompletos → Erosión</p>
         </div>
         """, unsafe_allow_html=True)
-# -------------------------------------------------
+
+# =========================================================
 # SLIDE 2
-# -------------------------------------------------
+# =========================================================
 elif slide == "Slide 2":
     st.markdown("""
     <div class="hero">
@@ -330,9 +326,9 @@ elif slide == "Slide 2":
         </div>
         """, unsafe_allow_html=True)
 
-# -------------------------------------------------
+# =========================================================
 # SLIDE 4
-# -------------------------------------------------
+# =========================================================
 elif slide == "Slide 4":
     st.markdown("""
     <div class="hero">
@@ -363,9 +359,9 @@ elif slide == "Slide 4":
     </div>
     """, unsafe_allow_html=True)
 
-# -------------------------------------------------
+# =========================================================
 # SLIDE 5
-# -------------------------------------------------
+# =========================================================
 elif slide == "Slide 5":
     st.markdown("""
     <div class="hero">
@@ -413,9 +409,9 @@ elif slide == "Slide 5":
     </div>
     """, unsafe_allow_html=True)
 
-# -------------------------------------------------
-# SLIDE 6 - ÁLBUM FOTOGRÁFICO
-# -------------------------------------------------
+# =========================================================
+# SLIDE 6
+# =========================================================
 elif slide == "Slide 6":
     st.markdown("""
     <div class="hero">
