@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 BASE_DIR = Path(__file__).resolve().parent
-IMG_CARTO = BASE_DIR / "cartografia_1988"
+IMG_CARTO = BASE_DIR / "Cartografia_1988"
 
 def show_image(path, caption=None):
     img_path = Path(path)
