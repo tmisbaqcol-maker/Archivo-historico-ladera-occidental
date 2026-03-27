@@ -52,13 +52,10 @@ st.markdown("""
     font-weight: 700;
     color: #1f3b73;
 }
-ul {
-    margin-top: 0.4rem;
-}
 </style>
 """, unsafe_allow_html=True)
 
-slides = ["Portada", "Slide 1", "Slide 2"]
+slides = ["Portada", "Slide 1", "Slide 2", "Slide 4", "Slide 5"]
 if "slide_idx" not in st.session_state:
     st.session_state.slide_idx = 0
 
@@ -187,5 +184,74 @@ elif slide == "Slide 2":
         st.markdown('<div class="loss-box"><h4>Infraestructura</h4><div class="big-number">$200.000.000</div><div>Pavimento, energía, redes, etc.</div></div>', unsafe_allow_html=True)
     with l3:
         st.markdown('<div class="loss-box"><h4>Total</h4><div class="big-number">$900.000.000</div><div>Periodo 1987–1988</div></div>', unsafe_allow_html=True)
+
+elif slide == "Slide 4":
+    st.markdown("""
+    <div class="hero">
+        <h1 style="margin-bottom:0.4rem;">Slide 4</h1>
+        <h2 style="margin-top:0; font-weight:600;">Aproximación de ubicación de barrios en la ladera sur-occ (1988)</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="slide-card">
+        <h3>Modelo 3D conceptual</h3>
+        <p>Representación aproximada de la secuencia territorial de barrios sobre la ladera occidental, con énfasis en gradiente de altura y exposición al riesgo.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col_img1, col_img2 = st.columns(2)
+
+    with col_img1:
+        st.image("newplot (2).png", caption="Perfil longitudinal de la ladera (vista lateral)", use_container_width=True)
+
+    with col_img2:
+        st.image("newplot (3).png", caption="Vista 3D de la ladera y ubicación de barrios", use_container_width=True)
+
+    st.markdown("""
+    <div class="risk-box">
+        <h3>Lectura territorial</h3>
+        <p>La distribución de barrios a lo largo de la pendiente evidencia una relación directa entre altura, ocupación informal y exposición al riesgo de erosión.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+elif slide == "Slide 5":
+    st.markdown("""
+    <div class="hero">
+        <h1 style="margin-bottom:0.4rem;">Slide 5</h1>
+        <h2 style="margin-top:0; font-weight:600;">Análisis cartográfico de deslizamientos (1988)</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="slide-card">
+        <h3>Lectura espacial de eventos de remoción en masa</h3>
+        <p>Cartografía histórica intervenida que evidencia zonas críticas de deslizamientos, trazas de escorrentía y ocupación en ladera.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    img_cols1 = st.columns(3)
+    img_cols2 = st.columns(3)
+
+    with img_cols1[0]:
+        st.image("WhatsApp Image 2026-03-27 at 8.30.54 AM.jpeg", use_container_width=True)
+    with img_cols1[1]:
+        st.image("WhatsApp Image 2026-03-27 at 8.30.54 AM (1).jpeg", use_container_width=True)
+    with img_cols1[2]:
+        st.image("WhatsApp Image 2026-03-27 at 8.30.54 AM (2).jpeg", use_container_width=True)
+
+    with img_cols2[0]:
+        st.image("WhatsApp Image 2026-03-27 at 8.30.55 AM.jpeg", use_container_width=True)
+    with img_cols2[1]:
+        st.image("WhatsApp Image 2026-03-27 at 8.30.55 AM (1).jpeg", use_container_width=True)
+    with img_cols2[2]:
+        st.image("WhatsApp Image 2026-03-27 at 8.30.55 AM (2).jpeg", use_container_width=True)
+
+    st.markdown("""
+    <div class="risk-box">
+        <h3>Interpretación técnica</h3>
+        <p>Las intervenciones manuales (marcaciones en color) indican zonas de inestabilidad, flujos de agua y sectores con alta susceptibilidad a deslizamientos.</p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.caption("Presentación en Streamlit basada en la sistematización histórica del riesgo por erosión en la zona suroccidental de Barranquilla.")
