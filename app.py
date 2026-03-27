@@ -211,6 +211,7 @@ elif slide == "Slide 1":
         st.markdown("""
         <div class="slide-card">
             <h3>Generadores del problema</h3>
+
             <p><strong>Falta de planeación</strong><br>
             ↓<br>
             <strong>Urbanizaciones piratas en zonas no aptas</strong></p>
@@ -233,12 +234,12 @@ elif slide == "Slide 1":
             <h3>Lectura sintética</h3>
             <p>La erosión aparece como resultado de la interacción entre ocupación informal del suelo, déficit de servicios básicos, pérdida de cobertura vegetal y presión hídrica estacional.</p>
         </div>
+
         <div class="metric-box">
             <h3>Cadena causal</h3>
             <p>Falta de planeación → Urbanización en zonas no aptas → Servicios incompletos → Erosión</p>
         </div>
         """, unsafe_allow_html=True)
-
 # -------------------------------------------------
 # SLIDE 2
 # -------------------------------------------------
