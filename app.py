@@ -1,6 +1,19 @@
+from pathlib import Path
 import streamlit as st
 
 st.set_page_config(page_title="Zona Suroccidente – Barranquilla", layout="wide")
+
+BASE_DIR = Path(__file__).resolve().parent
+IMG_CARTO = BASE_DIR / "cartografia_1988"
+
+def show_image(path, caption=None):
+    img_path = Path(path)
+    if not img_path.is_absolute():
+        img_path = BASE_DIR / path
+    if img_path.exists():
+        st.image(str(img_path), caption=caption, use_container_width=True)
+    else:
+        st.warning(f"No se encontró la imagen: {img_path}")
 
 st.markdown("""
 <style>
@@ -10,7 +23,7 @@ st.markdown("""
 .block-container {
     padding-top: 2rem;
     padding-bottom: 2rem;
-    max-width: 1100px;
+    max-width: 1180px;
 }
 .hero {
     background: linear-gradient(135deg, #1f3b73 0%, #2c5aa0 100%);
@@ -52,17 +65,27 @@ st.markdown("""
     font-weight: 700;
     color: #1f3b73;
 }
+ul {
+    margin-top: 0.4rem;
+}
+.small-note {
+    font-size: 0.95rem;
+    color: #4a5568;
+}
 </style>
 """, unsafe_allow_html=True)
 
 slides = ["Portada", "Slide 1", "Slide 2", "Slide 4", "Slide 5"]
+
 if "slide_idx" not in st.session_state:
     st.session_state.slide_idx = 0
 
 col_nav1, col_nav2, col_nav3 = st.columns([1, 2, 1])
+
 with col_nav1:
     if st.button("◀ Anterior", use_container_width=True):
         st.session_state.slide_idx = max(0, st.session_state.slide_idx - 1)
+
 with col_nav2:
     selected = st.radio(
         "Navegación",
@@ -72,6 +95,7 @@ with col_nav2:
         label_visibility="collapsed"
     )
     st.session_state.slide_idx = slides.index(selected)
+
 with col_nav3:
     if st.button("Siguiente ▶", use_container_width=True):
         st.session_state.slide_idx = min(len(slides) - 1, st.session_state.slide_idx + 1)
@@ -85,6 +109,7 @@ if slide == "Portada":
         <h3 style="margin-top:0; font-weight:400; opacity:0.95;">Factores estructurales y dinámicas territoriales</h3>
     </div>
     """, unsafe_allow_html=True)
+
     st.markdown("""
     <div class="slide-card">
         <h3>Presentación ejecutiva</h3>
@@ -102,6 +127,7 @@ elif slide == "Slide 1":
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns([1.2, 1])
+
     with col1:
         st.markdown("""
         <div class="slide-card">
@@ -118,6 +144,7 @@ elif slide == "Slide 1":
             <em>(Nacimientos de agua – invierno)</em></p>
         </div>
         """, unsafe_allow_html=True)
+
     with col2:
         st.markdown("""
         <div class="risk-box">
@@ -139,6 +166,7 @@ elif slide == "Slide 2":
     """, unsafe_allow_html=True)
 
     c1, c2 = st.columns(2)
+
     with c1:
         st.markdown('<div class="slide-card"><h3>Impacto poblacional total</h3>', unsafe_allow_html=True)
         st.markdown('<div class="metric-box"><div class="big-number">231.000</div><div>Habitantes en zonas afectadas por erosión y arroyos</div></div>', unsafe_allow_html=True)
@@ -178,10 +206,13 @@ elif slide == "Slide 2":
     """, unsafe_allow_html=True)
 
     l1, l2, l3 = st.columns(3)
+
     with l1:
         st.markdown('<div class="loss-box"><h4>Vivienda</h4><div class="big-number">$700.000.000</div><div>Setecientos millones de pesos</div></div>', unsafe_allow_html=True)
+
     with l2:
         st.markdown('<div class="loss-box"><h4>Infraestructura</h4><div class="big-number">$200.000.000</div><div>Pavimento, energía, redes, etc.</div></div>', unsafe_allow_html=True)
+
     with l3:
         st.markdown('<div class="loss-box"><h4>Total</h4><div class="big-number">$900.000.000</div><div>Periodo 1987–1988</div></div>', unsafe_allow_html=True)
 
@@ -203,10 +234,10 @@ elif slide == "Slide 4":
     col_img1, col_img2 = st.columns(2)
 
     with col_img1:
-        st.image("newplot (2).png", caption="Perfil longitudinal de la ladera (vista lateral)", use_container_width=True)
+        show_image("newplot (2).png", "Perfil longitudinal de la ladera (vista lateral)")
 
     with col_img2:
-        st.image("newplot (3).png", caption="Vista 3D de la ladera y ubicación de barrios", use_container_width=True)
+        show_image("newplot (3).png", "Vista 3D de la ladera y ubicación de barrios")
 
     st.markdown("""
     <div class="risk-box">
@@ -227,6 +258,7 @@ elif slide == "Slide 5":
     <div class="slide-card">
         <h3>Lectura espacial de eventos de remoción en masa</h3>
         <p>Cartografía histórica intervenida que evidencia zonas críticas de deslizamientos, trazas de escorrentía y ocupación en ladera.</p>
+        <p class="small-note">Las imágenes se cargan desde la carpeta <strong>cartografia_1988</strong>.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -234,23 +266,23 @@ elif slide == "Slide 5":
     img_cols2 = st.columns(3)
 
     with img_cols1[0]:
-        st.image("WhatsApp Image 2026-03-27 at 8.30.54 AM.jpeg", use_container_width=True)
+        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.54 AM.jpeg", "Mapa general de Barranquilla, 1988")
     with img_cols1[1]:
-        st.image("WhatsApp Image 2026-03-27 at 8.30.54 AM (1).jpeg", use_container_width=True)
+        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.54 AM (1).jpeg", "Villate")
     with img_cols1[2]:
-        st.image("WhatsApp Image 2026-03-27 at 8.30.54 AM (2).jpeg", use_container_width=True)
+        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.54 AM (2).jpeg", "La Manga")
 
     with img_cols2[0]:
-        st.image("WhatsApp Image 2026-03-27 at 8.30.55 AM.jpeg", use_container_width=True)
+        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.55 AM.jpeg", "La Paz")
     with img_cols2[1]:
-        st.image("WhatsApp Image 2026-03-27 at 8.30.55 AM (1).jpeg", use_container_width=True)
+        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.55 AM (1).jpeg", "La Libertad")
     with img_cols2[2]:
-        st.image("WhatsApp Image 2026-03-27 at 8.30.55 AM (2).jpeg", use_container_width=True)
+        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.55 AM (2).jpeg", "Nueva Colombia")
 
     st.markdown("""
     <div class="risk-box">
         <h3>Interpretación técnica</h3>
-        <p>Las intervenciones manuales (marcaciones en color) indican zonas de inestabilidad, flujos de agua y sectores con alta susceptibilidad a deslizamientos.</p>
+        <p>Las intervenciones manuales indican zonas de inestabilidad, flujos de agua y sectores con alta susceptibilidad a deslizamientos.</p>
     </div>
     """, unsafe_allow_html=True)
 
