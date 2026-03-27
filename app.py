@@ -265,19 +265,26 @@ elif slide == "Slide 5":
     img_cols1 = st.columns(3)
     img_cols2 = st.columns(3)
 
-    with img_cols1[0]:
-        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.54 AM.jpeg", "Mapa general de Barranquilla, 1988")
-    with img_cols1[1]:
-        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.54 AM (1).jpeg", "Villate")
-    with img_cols1[2]:
-        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.54 AM (2).jpeg", "La Manga")
+    img_cols1 = st.columns(3)
+img_cols2 = st.columns(3)
 
-    with img_cols2[0]:
-        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.55 AM.jpeg", "La Paz")
-    with img_cols2[1]:
-        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.55 AM (1).jpeg", "La Libertad")
-    with img_cols2[2]:
-        show_image(IMG_CARTO / "WhatsApp Image 2026-03-27 at 8.30.55 AM (2).jpeg", "Nueva Colombia")
+with img_cols1[0]:
+    show_image(IMG_CARTO / "Croquis_general.jpeg", "Croquis general de Barranquilla (1988)")
+
+with img_cols1[1]:
+    show_image(IMG_CARTO / "Villate.jpeg", "Zona crítica – Villate")
+
+with img_cols1[2]:
+    show_image(IMG_CARTO / "La_Manga.jpeg", "Barrio La Manga")
+
+with img_cols2[0]:
+    show_image(IMG_CARTO / "Manga_Zona_Critica.jpeg", "Zona crítica en La Manga")
+
+with img_cols2[1]:
+    show_image(IMG_CARTO / "La_Libertad.jpeg", "Zona crítica – La Libertad")
+
+with img_cols2[2]:
+    show_image(IMG_CARTO / "Bajo_Valle.jpeg", "Zona crítica – Bajo Valle")
 
     st.markdown("""
     <div class="risk-box">
