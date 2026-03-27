@@ -12,6 +12,7 @@ st.set_page_config(
 
 BASE_DIR = Path(__file__).resolve().parent
 IMG_CARTO = BASE_DIR / "Cartografia_1988"
+IMG_FOTOS = BASE_DIR / "Fotografia_1988"
 
 def show_image(path, caption=None):
     img_path = Path(path)
@@ -21,6 +22,12 @@ def show_image(path, caption=None):
         st.image(str(img_path), caption=caption, use_container_width=True)
     else:
         st.warning(f"No se encontró la imagen: {img_path}")
+
+def get_images_from_folder(folder: Path):
+    extensiones = {".jpg", ".jpeg", ".png", ".webp"}
+    if not folder.exists():
+        return []
+    return sorted([p for p in folder.iterdir() if p.is_file() and p.suffix.lower() in extensiones])
 
 # -------------------------------------------------
 # ESTILOS
@@ -100,18 +107,56 @@ ul {
 h1, h2, h3, h4 {
     margin-top: 0;
 }
+.album-wrap {
+    background: linear-gradient(180deg, #efe5d0 0%, #e7dbc1 100%);
+    border-radius: 20px;
+    padding: 1.2rem;
+    box-shadow: inset 0 0 0 1px rgba(90,70,40,.12), 0 6px 22px rgba(0,0,0,.08);
+    margin-bottom: 1.2rem;
+}
+.album-title {
+    text-align: center;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #5b4325;
+    margin-bottom: .35rem;
+}
+.album-subtitle {
+    text-align: center;
+    color: #6a5840;
+    font-size: .98rem;
+    margin-bottom: 1rem;
+}
+.polaroid {
+    background: #fffdf8;
+    padding: .7rem .7rem 1rem .7rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.16);
+    transform: rotate(-1deg);
+    margin-bottom: 1rem;
+    border: 1px solid #ece3d1;
+}
+.polaroid:nth-child(2n) {
+    transform: rotate(1.2deg);
+}
+.photo-note {
+    text-align: center;
+    font-size: .92rem;
+    color: #5d4c33;
+    margin-top: .45rem;
+}
 </style>
 """, unsafe_allow_html=True)
 
 # -------------------------------------------------
 # NAVEGACIÓN
 # -------------------------------------------------
-slides = ["Portada", "Slide 1", "Slide 2", "Slide 4", "Slide 5"]
+slides = ["Portada", "Slide 1", "Slide 2", "Slide 4", "Slide 5", "Slide 6"]
 
 if "slide_idx" not in st.session_state:
     st.session_state.slide_idx = 0
 
-nav1, nav2, nav3 = st.columns([1, 2.5, 1])
+nav1, nav2, nav3 = st.columns([1, 2.8, 1])
 
 with nav1:
     if st.button("◀ Anterior", use_container_width=True):
@@ -327,7 +372,7 @@ elif slide == "Slide 5":
     <div class="slide-card">
         <h3>Lectura espacial de eventos de remoción en masa</h3>
         <p>Cartografía histórica intervenida que evidencia zonas críticas de deslizamientos, trazas de escorrentía y ocupación en ladera.</p>
-        <p class="small-note">Las imágenes se cargan desde la carpeta <strong>cartografia_1988</strong>.</p>
+        <p class="small-note">Las imágenes se cargan desde la carpeta <strong>Cartografia_1988</strong>.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -343,19 +388,15 @@ elif slide == "Slide 5":
 
     with row1[0]:
         show_image(IMG_CARTO / "Croquis_general.jpeg", "Croquis general de Barranquilla (1988)")
-
     with row1[1]:
         show_image(IMG_CARTO / "Villate.jpeg", "Zona crítica – Villate")
-
     with row1[2]:
         show_image(IMG_CARTO / "La_Manga.jpeg", "Barrio La Manga")
 
     with row2[0]:
         show_image(IMG_CARTO / "Manga_Zona_Critica.jpeg", "Zona crítica en La Manga")
-
     with row2[1]:
         show_image(IMG_CARTO / "La_Libertad.jpeg", "Zona crítica – La Libertad")
-
     with row2[2]:
         show_image(IMG_CARTO / "Bajo_Valle.jpeg", "Zona crítica – Bajo Valle")
 
@@ -365,5 +406,61 @@ elif slide == "Slide 5":
         <p>Las intervenciones manuales indican zonas de inestabilidad, direcciones probables de escorrentía y sectores con alta susceptibilidad a deslizamientos, permitiendo reconstruir la lógica territorial del riesgo identificada en 1988.</p>
     </div>
     """, unsafe_allow_html=True)
+
+# -------------------------------------------------
+# SLIDE 6 - ÁLBUM FOTOGRÁFICO
+# -------------------------------------------------
+elif slide == "Slide 6":
+    st.markdown("""
+    <div class="hero">
+        <h1 style="margin-bottom:0.35rem;">Slide 6</h1>
+        <h2 style="margin-top:0; font-weight:600;">Álbum fotográfico histórico (1988)</h2>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="album-wrap">
+        <div class="album-title">Registro fotográfico de campo</div>
+        <div class="album-subtitle">Zona Suroccidente – Barranquilla · archivo visual histórico</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="slide-card">
+        <h3>Lectura visual del archivo</h3>
+        <p>Las imágenes corresponden a un registro histórico de campo asociado a la ladera occidental y a los procesos de erosión, escorrentía, ocupación en pendiente y afectación territorial observados en 1988.</p>
+        <p class="small-note">La galería se carga automáticamente desde la carpeta <strong>Fotografia_1988</strong>.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    fotos = get_images_from_folder(IMG_FOTOS)
+
+    if not fotos:
+        st.warning(f"No se encontraron imágenes en: {IMG_FOTOS}")
+    else:
+        st.markdown("""
+        <div class="info-box">
+            <h4>Álbum</h4>
+            <p>Visualización automática de las fotografías disponibles en el repositorio. La disposición busca simular un álbum histórico con piezas seriadas de observación de terreno.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        cols = st.columns(3)
+        for i, foto in enumerate(fotos):
+            with cols[i % 3]:
+                st.markdown('<div class="polaroid">', unsafe_allow_html=True)
+                st.image(str(foto), use_container_width=True)
+                st.markdown(
+                    f'<div class="photo-note">{foto.stem}</div>',
+                    unsafe_allow_html=True
+                )
+                st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="risk-box">
+            <h3>Valor analítico</h3>
+            <p>Este registro fotográfico complementa la cartografía de 1988 al aportar evidencia visual sobre morfología de ladera, ocupación del suelo, trazas de agua y sectores potencialmente expuestos a remoción en masa.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
 st.caption("Presentación en Streamlit basada en la sistematización histórica del riesgo por erosión en la zona suroccidental de Barranquilla.")
