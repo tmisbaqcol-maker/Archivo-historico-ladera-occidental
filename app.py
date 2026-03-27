@@ -348,7 +348,7 @@ elif slide == "Slide 5":
         show_image(IMG_CARTO / "Villate.jpeg", "Zona crítica – Villate")
 
     with row1[2]:
-        show_image(IMG_CARTO / "La_Manga 1.jpeg", "Barrio La Manga")
+        show_image(IMG_CARTO / "La_Manga.jpeg", "Barrio La Manga")
 
     with row2[0]:
         show_image(IMG_CARTO / "Manga_Zona_Critica.jpeg", "Zona crítica en La Manga")
